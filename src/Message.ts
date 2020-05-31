@@ -2,15 +2,15 @@ import Discord from 'discord.js';
 import * as config from './config.json';
 
 export class Message {
-  private _content: String;
-  private _user: Discord.User;
+  private readonly _content: String;
+  private readonly _user: Discord.User;
 
   /**
    * This is the unfiltered message received directly from the DiscordJs API
    */
-  private _rawMessage: Discord.Message;
+  private readonly _rawMessage: Discord.Message;
 
-  constructor(content: String, user: Discord.User, rawMsg: Discord.Message) {
+  private constructor(content: String, user: Discord.User, rawMsg: Discord.Message) {
     this._content = content;
     this._user = user;
     this._rawMessage = rawMsg;

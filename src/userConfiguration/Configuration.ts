@@ -10,11 +10,15 @@ export class UserConfig {
   }
 
   public static getUserConfig(userId: Snowflake): Map<string, string> {
-    if (!UserConfig.userConfigurationMap.has(userId)) {
+    if (!this.userConfigurationMap.has(userId)) {
       const map = new Map<string,string>();
-      UserConfig.userConfigurationMap.set(userId, map);
+      this.userConfigurationMap.set(userId, map);
       return map;
     }
-    return UserConfig.userConfigurationMap.get(userId)!;
+    return this.userConfigurationMap.get(userId)!;
+  }
+
+  public static clearAllConfigs(): void {
+    this.userConfigurationMap.clear();
   }
 }

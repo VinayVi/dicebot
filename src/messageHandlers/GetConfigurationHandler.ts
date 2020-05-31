@@ -13,8 +13,7 @@ export class GetConfigurationHandler implements MessageHandler {
     const userId: Snowflake = msg.user.id;
     const userConfig = UserConfig.getUserConfig(userId);
 
-    console.log(userConfig);
-    const response = JSON.stringify(userConfig.entries());
+    const response = JSON.stringify(Array.from(userConfig.entries()));
 
     msg.rawMessage.reply(response);
   }

@@ -4,7 +4,7 @@ import * as config from "../config.json";
 import Discord from "discord.js";
 
 export class MessageDispatcher {
-  private handlers: MessageHandler[];
+  private readonly handlers: MessageHandler[];
 
   /**
    * If the message is unsupported by the above handlers, or too many handlers support a message,

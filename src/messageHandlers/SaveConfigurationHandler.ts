@@ -1,9 +1,9 @@
-import { MessageHandler } from "./MessageHandler";
+import { DiscriminatingMessageHandler } from "./MessageHandler";
 import { UserConfig } from "../userConfiguration/Configuration";
 import { Message } from "../Message";
 import { Snowflake } from "discord.js";
 
-export class SaveConfigurationHandler implements MessageHandler {
+export class SaveConfigurationHandler implements DiscriminatingMessageHandler {
   private static readonly PREFIX: string = "--save-config";
 
   supports(msg: Message): boolean {

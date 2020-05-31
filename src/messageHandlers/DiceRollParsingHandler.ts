@@ -4,7 +4,7 @@ import { UserConfig } from "../userConfiguration/Configuration";
 import { Message } from "../Message";
 
 
-export class DefaultHandler implements MessageHandler {
+export class DiceRollParsingHandler implements MessageHandler {
   private readonly dice: Dice;
 
   constructor() {

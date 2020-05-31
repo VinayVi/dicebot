@@ -1,15 +1,6 @@
 import Discord from 'discord.js';
 import * as config from './config.json';
-import { SaveConfigurationHandler } from './messageHandlers/SaveConfigurationHandler';
-import { GetConfigurationHandler } from './messageHandlers/GetConfigurationHandler';
-import { DefaultHandler as DefaultHandler } from './messageHandlers/DefaultHandler';
-import { MessageDispatcher } from './messageHandlers/MessageDispatcher';
-
-const saveConfigurationHandler: SaveConfigurationHandler = new SaveConfigurationHandler();
-const getConfigurationhandler: GetConfigurationHandler = new GetConfigurationHandler();
-const defaultHandler: DefaultHandler = new DefaultHandler();
-
-const dispatcher: MessageDispatcher = new MessageDispatcher([saveConfigurationHandler, getConfigurationhandler], defaultHandler);
+import * as dispatcher from './messageHandlers';
 
 const client = new Discord.Client();
 

@@ -1,21 +1,10 @@
-import { MessageHandler } from "./MessageHandler";
+import { MessageHandler, DiscriminatingMessageHandler } from "./MessageHandler";
 import { Message } from "../Message";
 import * as config from "../config.json";
 import Discord from "discord.js";
 
 export class MessageDispatcher {
-  private readonly handlers: MessageHandler[];
-
-  /**
-   * If the message is unsupported by the above handlers, or too many handlers support a message,
-   * then fallback to the default handler
-   */
-  private defaultHandler: MessageHandler;
-
-  constructor(handlers: MessageHandler[], defaultHandler: MessageHandler) {
-    this.handlers = handlers;
-    this.defaultHandler = defaultHandler;
-  }
+  constructor(private readonly handlers: DiscriminatingMessageHandler[], private readonly defaultHandler: MessageHandler) { }
 
   dispatchMessage(msg: Discord.Message) {
     const message = Message.from(msg);

@@ -1,13 +1,13 @@
 import { MessageHandler } from "./MessageHandler";
 import { Dice } from "dice-typescript";
-import { UserConfig } from "../userConfiguration/Configuration";
+import { ConfigRepository } from "../userConfiguration/Configuration";
 import { Message } from "../Message";
 
 
 export class DiceRollParsingHandler implements MessageHandler {
   private readonly dice: Dice;
 
-  constructor() {
+  constructor(private readonly configRepository: ConfigRepository) {
     this.dice = new Dice();
   }
 
@@ -15,9 +15,10 @@ export class DiceRollParsingHandler implements MessageHandler {
     // This is the fallback handler, so this supports everything
     return true;
   }
+  
   handle(msg: Message): void {
     let msgArgs = msg.content.toString();
-    const userConfig = UserConfig.getUserConfig(msg.user.id);
+    const userConfig = this.configRepository.getUserConfig(msg.user.id);
     
     userConfig.forEach((v, k) => {
       msgArgs = msgArgs.replace(k, v);

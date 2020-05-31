@@ -1,8 +1,8 @@
 import { Snowflake } from "discord.js";
 
-export class UserConfig {
+class StaticUserConfig {
   // username => key => replacement
-  private static userConfigurationMap = new Map<Snowflake, Map<string, string>>();
+  private static readonly userConfigurationMap = new Map<Snowflake, Map<string, string>>();
 
   public static setUserConfig(userId: Snowflake, key: string, replacement: string): void {
     const map = this.getUserConfig(userId);
@@ -20,5 +20,19 @@ export class UserConfig {
 
   public static clearAllConfigs(): void {
     this.userConfigurationMap.clear();
+  }
+}
+
+export class ConfigRepository {
+  setUserConfig(userId: Snowflake, key: string, replacement: string): void {
+    StaticUserConfig.setUserConfig(userId, key, replacement);
+  }
+
+  getUserConfig(userId: Snowflake): Map<string, string> {
+    return StaticUserConfig.getUserConfig(userId);
+  }
+
+  clearAllConfigs(): void {
+    StaticUserConfig.clearAllConfigs();
   }
 }

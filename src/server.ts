@@ -1,6 +1,6 @@
 import Discord from 'discord.js';
 import * as config from './config.json';
-import * as dispatcher from './messageHandlers';
+import { dispatcher } from './messageHandlers';
 
 const client = new Discord.Client();
 

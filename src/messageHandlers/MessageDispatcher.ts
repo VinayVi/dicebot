@@ -1,6 +1,6 @@
 import { MessageHandler, DiscriminatingMessageHandler } from "./MessageHandler";
 import { Message } from "../Message";
-import * as config from "../config.json";
+import * as config from "../discord.config.json";
 import Discord from "discord.js";
 
 export class MessageDispatcher {

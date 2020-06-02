@@ -1,5 +1,5 @@
 import Discord from 'discord.js';
-import * as config from './config.json';
+import * as config from './discord.config.json';
 
 export class Message {
   private readonly _content: String;

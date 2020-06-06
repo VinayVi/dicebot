@@ -22,4 +22,3 @@ test("UserConfiguration sets data properly", () => {
   expect(userConfig.size).toBe(1);
   expect(userConfig.get("somestring")).toBe("somereplacement");
 })
-

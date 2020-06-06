@@ -6,15 +6,18 @@
   "scripts": {
     "start": "npx tsc && node dist/src/server.js",
     "test": "jest",
-    "coverage": "jest --coverage",  
-    "tsc": "tsc"
+    "coverage": "jest --coverage",
+    "tsc": "tsc -p"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/node": "^14.0.5",
+    "@types/node": "^14.0.9",
     "dice-typescript": "^1.6.1",
-    "discord.js": "^12.2.0"
+    "discord.js": "^12.2.0",
+    "pg": "^8.2.1",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.25"
   },
   "devDependencies": {
     "@types/jest": "^25.2.3",

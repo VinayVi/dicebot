@@ -3,7 +3,7 @@ import { UserConfiguration } from "./UserConfiguration";
 import * as dbconfig from '../../db.config.json';
 import { UserConfigurationRepository } from "./UserConfigurationRepository";
 
-const connection = await createConnection({
+const connection = createConnection({
   type: "postgres",
   host: dbconfig.host,
   port: dbconfig.port,
@@ -17,6 +17,10 @@ const connection = await createConnection({
   logging: false
 });
 
-const userConfigurationRepository = connection.getCustomRepository(UserConfigurationRepository);
+const userConfigurationRepository: Promise<UserConfigurationRepository> = new Promise((resolve, reject) => {
+  connection
+    .then(c => resolve(c.getCustomRepository(UserConfigurationRepository)))
+    .catch(reject)
+})
 
 export { userConfigurationRepository }

@@ -12,7 +12,7 @@ export class SaveConfigurationHandler implements DiscriminatingMessageHandler {
     return msg.content.startsWith(SaveConfigurationHandler.PREFIX);
   }
 
-  handle(msg: Message): void {
+  async handle(msg: Message): Promise<void> {
     const userId: Snowflake = msg.user.id;
 
     const args = msg.content.substr(SaveConfigurationHandler.PREFIX.length).trim();
@@ -20,7 +20,7 @@ export class SaveConfigurationHandler implements DiscriminatingMessageHandler {
     const key = args.slice(0, space).trim();
     const replacement = args.slice(space).trim();
 
-    this.configRepository.setUserConfig(userId, key, replacement);
+    await this.configRepository.setUserConfig(userId, key, replacement);
 
     msg.rawMessage.reply("Configuration Saved!")
   }

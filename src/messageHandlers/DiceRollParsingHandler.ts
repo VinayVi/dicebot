@@ -16,9 +16,9 @@ export class DiceRollParsingHandler implements MessageHandler {
     return true;
   }
   
-  handle(msg: Message): void {
+  async handle(msg: Message): Promise<void> {
     let msgArgs = msg.content.toString();
-    const userConfig = this.configRepository.getUserConfig(msg.user.id);
+    const userConfig = await this.configRepository.getUserConfig(msg.user.id);
     
     userConfig.forEach((v, k) => {
       msgArgs = msgArgs.replace(k, v);

@@ -11,9 +11,10 @@ export class GetConfigurationHandler implements DiscriminatingMessageHandler {
   supports(msg: Message): boolean {
     return msg.content.startsWith(GetConfigurationHandler.PREFIX);
   }
-  handle(msg: Message): void {
+
+  async handle(msg: Message): Promise<void> {
     const userId: Snowflake = msg.user.id;
-    const userConfig = this.configRepository.getUserConfig(userId);
+    const userConfig = await this.configRepository.getUserConfig(userId);
 
     const response = JSON.stringify(Array.from(userConfig.entries()));
 

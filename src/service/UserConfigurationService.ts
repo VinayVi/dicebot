@@ -2,7 +2,7 @@ import { Snowflake } from "discord.js";
 import { UserConfigurationRepository } from "src/entity/UserConfigurationRepository";
 import { UserConfiguration } from "src/entity/UserConfiguration";
 
-export class ConfigRepository {
+export class UserConfigurationService {
   private userConfigurationRepository: UserConfigurationRepository;
 
   constructor(promise: Promise<UserConfigurationRepository>) {

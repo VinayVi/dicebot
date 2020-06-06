@@ -1,13 +1,13 @@
 import { MessageHandler } from "./MessageHandler";
 import { Dice } from "dice-typescript";
-import { ConfigRepository } from "../userConfiguration/Configuration";
+import { UserConfigurationService } from "../service/UserConfigurationService";
 import { Message } from "../Message";
 
 
 export class DiceRollParsingHandler implements MessageHandler {
   private readonly dice: Dice;
 
-  constructor(private readonly configRepository: ConfigRepository) {
+  constructor(private readonly userConfigurationService: UserConfigurationService) {
     this.dice = new Dice();
   }
 
@@ -18,7 +18,7 @@ export class DiceRollParsingHandler implements MessageHandler {
   
   async handle(msg: Message): Promise<void> {
     let msgArgs = msg.content.toString();
-    const userConfig = await this.configRepository.getUserConfig(msg.user.id);
+    const userConfig = await this.userConfigurationService.getUserConfig(msg.user.id);
     
     userConfig.forEach((v, k) => {
       msgArgs = msgArgs.replace(k, v);

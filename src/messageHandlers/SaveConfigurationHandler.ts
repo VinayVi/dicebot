@@ -1,12 +1,12 @@
 import { DiscriminatingMessageHandler } from "./MessageHandler";
-import { ConfigRepository } from "../userConfiguration/Configuration";
+import { UserConfigurationService } from "../service/UserConfigurationService";
 import { Message } from "../Message";
 import { Snowflake } from "discord.js";
 
 export class SaveConfigurationHandler implements DiscriminatingMessageHandler {
   private static readonly PREFIX: string = "--save-config";
 
-  constructor(private readonly configRepository: ConfigRepository) {}
+  constructor(private readonly userConfigurationService: UserConfigurationService) {}
 
   supports(msg: Message): boolean {
     return msg.content.startsWith(SaveConfigurationHandler.PREFIX);
@@ -20,7 +20,7 @@ export class SaveConfigurationHandler implements DiscriminatingMessageHandler {
     const key = args.slice(0, space).trim();
     const replacement = args.slice(space).trim();
 
-    await this.configRepository.setUserConfig(userId, key, replacement);
+    await this.userConfigurationService.setUserConfig(userId, key, replacement);
 
     msg.rawMessage.reply("Configuration Saved!")
   }

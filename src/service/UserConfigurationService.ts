@@ -26,6 +26,10 @@ export class UserConfigurationService {
     return this.userConfigurationRepository.findAllByUserId(userId);
   }
 
+  async deleteUserConfig(userId: Snowflake, key: string) {
+    return this.userConfigurationRepository.delete({userId: userId, key: key});
+  }
+
   async clearAllConfigs(): Promise<void> {
     return this.userConfigurationRepository.clear();
   }

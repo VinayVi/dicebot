@@ -31,9 +31,9 @@ export class DiceRollParsingHandler implements MessageHandler {
 
       const response = renderedExpr + " -------> " + total
 
-      msg.rawMessage.reply(response);
+      msg.reply(response);
     } catch (err) {
-      msg.rawMessage.reply("Could not parse " + msgArgs)
+      msg.reply("Could not parse " + msgArgs)
     }
   }
 

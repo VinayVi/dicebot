@@ -2,21 +2,13 @@ import Discord from 'discord.js';
 import * as config from './discord.config.json';
 
 export class Message {
-  private readonly _content: String;
-  private readonly _user: Discord.User;
 
-  /**
-   * This is the unfiltered message received directly from the DiscordJs API
-   */
-  private readonly _rawMessage: Discord.Message;
+  private constructor(
+    private readonly _content: string,
+    private readonly _user: Discord.User,
+    private readonly _reply: (content: string) => Promise<Discord.Message>) { }
 
-  private constructor(content: String, user: Discord.User, rawMsg: Discord.Message) {
-    this._content = content;
-    this._user = user;
-    this._rawMessage = rawMsg;
-  }
-
-	public get content(): String {
+	public get content(): string {
 		return this._content;
 	}
   
@@ -24,12 +16,12 @@ export class Message {
     return this._user;
   }
 
-  public get rawMessage(): Discord.Message {
-    return this._rawMessage;
+  public reply(content: string): Promise<Discord.Message> {
+    return this._reply(content);
   }
 
   public static from(msg: Discord.Message): Message {
     const trimmedMsg = msg.content.substring(config.prefix.length).trim();
-    return new Message(trimmedMsg, msg.author, msg);
+    return new Message(trimmedMsg, msg.author, c => msg.reply(c));
   }
 }

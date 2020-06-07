@@ -22,7 +22,7 @@ export class SaveConfigurationHandler implements DiscriminatingMessageHandler {
 
     await this.userConfigurationService.setUserConfig(userId, key, replacement);
 
-    msg.rawMessage.reply("Configuration Saved!")
+    msg.reply("Configuration Saved!")
   }
 
 }

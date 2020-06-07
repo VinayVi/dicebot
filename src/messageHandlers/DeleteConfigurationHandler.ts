@@ -3,26 +3,23 @@ import { UserConfigurationService } from "../service/UserConfigurationService";
 import { Message } from "../Message";
 import { Snowflake } from "discord.js";
 
-export class GetConfigurationHandler implements DiscriminatingMessageHandler {
-  private static readonly PREFIX: string = "--get-config";
+export class DeleteConfigurationHandler implements DiscriminatingMessageHandler {
+  private static readonly PREFIX: string = "--delete-config";
 
   constructor(private readonly userConfigurationService: UserConfigurationService) {}
 
   supports(msg: Message): boolean {
-    return msg.content.startsWith(GetConfigurationHandler.PREFIX);
+    return msg.content.startsWith(DeleteConfigurationHandler.PREFIX);
   }
 
   async handle(msg: Message): Promise<void> {
     const userId: Snowflake = msg.user.id;
-    const userConfigs = await this.userConfigurationService.getUserConfigs(userId);
 
-    let response = "\n";
+    const args = msg.content.substr(DeleteConfigurationHandler.PREFIX.length).trim();
+    const key = args.trim();
 
-    userConfigs.forEach(u => {
-      response += u.key + " => " + u.replacement + "\n";
-    })
-
-    msg.reply(response);
+    this.userConfigurationService.deleteUserConfig(userId, key)
+      .then(_ => msg.reply("Configuration Deleted!"));
   }
 
 }

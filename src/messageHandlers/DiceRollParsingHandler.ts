@@ -18,10 +18,10 @@ export class DiceRollParsingHandler implements MessageHandler {
   
   async handle(msg: Message): Promise<void> {
     let msgArgs = msg.content.toString();
-    const userConfig = await this.userConfigurationService.getUserConfig(msg.user.id);
+    const userConfigs = await this.userConfigurationService.getUserConfigs(msg.user.id);
     
-    userConfig.forEach((v, k) => {
-      msgArgs = msgArgs.replace(k, v);
+    userConfigs.forEach(config => {
+      msgArgs = msgArgs.replace(config.key, config.replacement);
     });
 
     try {

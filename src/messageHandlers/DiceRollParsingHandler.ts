@@ -23,17 +23,8 @@ export class DiceRollParsingHandler implements MessageHandler {
     
     const populatedMessage = this.populateMessageWithUserConfigs(msgArgs, userConfigs);
 
-    try {
-      const diceRoll = this.dice.roll(populatedMessage);
-      const total = diceRoll.total;
-      const renderedExpr = diceRoll.renderedExpression;
-
-      const response = renderedExpr + " -------> " + total
-
-      msg.reply(response);
-    } catch (err) {
-      msg.reply("Could not parse " + msgArgs)
-    }
+    const rollRequests = populatedMessage.split("&");
+    this.processRequests(rollRequests, msg);
   }
 
   populateMessageWithUserConfigs(msgArgs: string, userConfigs: UserConfiguration[]): string {
@@ -49,4 +40,23 @@ export class DiceRollParsingHandler implements MessageHandler {
     return returnMessage;
   }
 
+  processRequests(rollRequests: string[], msg: Message) {
+    rollRequests.forEach(request => {
+      this.processOneRequest(request, msg);
+    })
+  }
+
+  processOneRequest(request: string, msg: Message) {
+    try {
+      const diceRoll = this.dice.roll(request);
+      const total = diceRoll.total;
+      const renderedExpr = diceRoll.renderedExpression;
+
+      const response = renderedExpr + " -------> " + total
+
+      msg.reply(response);
+    } catch (err) {
+      msg.reply("Could not parse " + request)
+    }
+  }
 }

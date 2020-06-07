@@ -2,6 +2,7 @@ import { MessageHandler } from "./MessageHandler";
 import { Dice } from "dice-typescript";
 import { UserConfigurationService } from "../service/UserConfigurationService";
 import { Message } from "../Message";
+import { UserConfiguration } from "src/entity/UserConfiguration";
 
 
 export class DiceRollParsingHandler implements MessageHandler {
@@ -17,15 +18,13 @@ export class DiceRollParsingHandler implements MessageHandler {
   }
   
   async handle(msg: Message): Promise<void> {
-    let msgArgs = msg.content.toString();
+    const msgArgs = msg.content.toString();
     const userConfigs = await this.userConfigurationService.getUserConfigs(msg.user.id);
     
-    userConfigs.forEach(config => {
-      msgArgs = msgArgs.replace(config.key, config.replacement);
-    });
+    const populatedMessage = this.populateMessageWithUserConfigs(msgArgs, userConfigs);
 
     try {
-      const diceRoll = this.dice.roll(msgArgs);
+      const diceRoll = this.dice.roll(populatedMessage);
       const total = diceRoll.total;
       const renderedExpr = diceRoll.renderedExpression;
 
@@ -35,6 +34,19 @@ export class DiceRollParsingHandler implements MessageHandler {
     } catch (err) {
       msg.reply("Could not parse " + msgArgs)
     }
+  }
+
+  populateMessageWithUserConfigs(msgArgs: string, userConfigs: UserConfiguration[]): string {
+    let prevMessage = msgArgs;
+    let returnMessage = prevMessage;
+    do {
+      prevMessage = returnMessage;
+      userConfigs.forEach(config => {
+        returnMessage = returnMessage.replace(config.key, config.replacement).trim();
+      });
+    } while (prevMessage !== returnMessage);
+
+    return returnMessage;
   }
 
 }

@@ -30,12 +30,15 @@ export class DiceRollParsingHandler implements MessageHandler {
   populateMessageWithUserConfigs(msgArgs: string, userConfigs: UserConfiguration[]): string {
     let prevMessage = msgArgs;
     let returnMessage = prevMessage;
+
+    let index = 0;
     do {
       prevMessage = returnMessage;
       userConfigs.forEach(config => {
         returnMessage = returnMessage.replace(config.key, config.replacement).trim();
       });
-    } while (prevMessage !== returnMessage);
+      index++;
+    } while (prevMessage !== returnMessage && index < 10);
 
     return returnMessage;
   }

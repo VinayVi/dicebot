@@ -1,15 +1,20 @@
-import { DiscriminatingMessageHandler } from "./MessageHandler";
+import { AbstractDiscriminatingMessageHandler } from "./MessageHandler";
 import { UserConfigurationService } from "../service/UserConfigurationService";
 import { Message } from "../Message";
 import { Snowflake } from "discord.js";
 
-export class GetConfigurationHandler implements DiscriminatingMessageHandler {
-  private static readonly PREFIX: string = "--get-config";
+export class GetConfigurationHandler extends AbstractDiscriminatingMessageHandler {
 
-  constructor(private readonly userConfigurationService: UserConfigurationService) {}
+  constructor(private readonly userConfigurationService: UserConfigurationService) {
+    super()
+  }
 
-  supports(msg: Message): boolean {
-    return msg.content.startsWith(GetConfigurationHandler.PREFIX);
+  getLongPrefix(): string {
+    return "--get-config";
+  }
+
+  getShortPrefix(): string {
+    return "-g";
   }
 
   async handle(msg: Message): Promise<void> {
@@ -24,5 +29,4 @@ export class GetConfigurationHandler implements DiscriminatingMessageHandler {
 
     msg.reply(response);
   }
-
 }

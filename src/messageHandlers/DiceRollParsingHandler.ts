@@ -11,11 +11,6 @@ export class DiceRollParsingHandler implements MessageHandler {
   constructor(private readonly userConfigurationService: UserConfigurationService) {
     this.dice = new Dice();
   }
-
-  supports(msg: Message): boolean {
-    // This is the fallback handler, so this supports everything
-    return true;
-  }
   
   async handle(msg: Message): Promise<void> {
     const msgArgs = msg.content.toString();

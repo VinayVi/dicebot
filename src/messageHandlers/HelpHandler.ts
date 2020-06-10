@@ -1,6 +1,5 @@
 import { AbstractDiscriminatingMessageHandler } from "./MessageHandler";
 import { Message } from "../Message";
-import { Snowflake } from "discord.js";
 
 export class HelpHandler extends AbstractDiscriminatingMessageHandler {
 
@@ -25,6 +24,8 @@ export class HelpHandler extends AbstractDiscriminatingMessageHandler {
       --save-config, -s [key] [replacement]: Saves a configuration that maps [key] to [replacement].
       --delete-config, -d [key]: Deletes a configuration with the given [key]. Returns success even if no configuration is found.
       --help, h: Prints this message :)
+
+    Multi-request queries are also allowed. Messages are split by the character "&" and then parsed individually. For example, "1d8 & 1d6" responds with two, separate replies
 
     All other messages are parsed as if they are a dice roll.
     `;

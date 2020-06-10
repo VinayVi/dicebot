@@ -26,10 +26,14 @@ export class DiceRollParsingHandler implements MessageHandler {
     let prevMessage = msgArgs;
     let returnMessage = prevMessage;
 
+    const sortedConfigs = userConfigs.sort((a, b) => {
+      return b.key.length - a.key.length;
+    });
+
     let index = 0;
     do {
       prevMessage = returnMessage;
-      userConfigs.forEach(config => {
+      sortedConfigs.forEach(config => {
         returnMessage = returnMessage.replace(config.key, config.replacement).trim();
       });
       index++;

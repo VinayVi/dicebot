@@ -1,15 +1,14 @@
 import { createConnection, EntityRepository, Repository } from "typeorm";
 import { UserConfiguration } from "./UserConfiguration";
-import * as dbconfig from '../../db.config.json';
 import { UserConfigurationRepository } from "./UserConfigurationRepository";
 
 const connection = createConnection({
   type: "postgres",
-  host: dbconfig.host,
-  port: dbconfig.port,
-  username: dbconfig.username,
-  password: dbconfig.password,
-  database: dbconfig.database,
+  host: "postgres",
+  port: 5432,
+  username: "postgres",
+  password: "alpine",
+  database: "dicebot",
   entities: [
       UserConfiguration
   ],

@@ -1,0 +1,21 @@
+version: '3'
+services: 
+
+  app:
+    build: .
+    depends_on: 
+      - postgres
+    container_name: dicebot
+
+  postgres:
+    restart: always
+    image: postgres:13-alpine
+    ports: 
+      - "5432:5432"
+    volumes: 
+      - "${DATADIRECTORY}:/var/lib/postgresql/data"
+    environment: 
+      - POSTGRES_PASSWORD=alpine
+      - POSTGRES_DB=dicebot
+    container_name: postgres
+    

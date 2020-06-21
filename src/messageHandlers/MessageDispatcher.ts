@@ -1,12 +1,11 @@
 import { MessageHandler, DiscriminatingMessageHandler } from "./MessageHandler";
 import { Message } from "../Message";
-import * as config from "../discord.config.json";
 import Discord from "discord.js";
 
 export class MessageDispatcher {
   constructor(private readonly handlers: DiscriminatingMessageHandler[], private readonly defaultHandler: MessageHandler) { }
 
-  dispatchMessage(msg: Discord.Message) {
+  async dispatchMessage(msg: Discord.Message): Promise<void> {
     const message = Message.from(msg);
 
     const viableHandlers = this.handlers.filter(handler => handler.supports(message));

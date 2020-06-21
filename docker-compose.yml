@@ -5,6 +5,8 @@ services:
     build: .
     depends_on: 
       - postgres
+    volumes:
+      - "${PWD}/src/discord.config.json:/app/src/discord.config.json"
     container_name: dicebot
 
   postgres:
@@ -13,7 +15,7 @@ services:
     ports: 
       - "5432:5432"
     volumes: 
-      - "${DATADIRECTORY}:/var/lib/postgresql/data"
+      - "${PWD}/db-data:/var/lib/postgresql/data"
     environment: 
       - POSTGRES_PASSWORD=alpine
       - POSTGRES_DB=dicebot

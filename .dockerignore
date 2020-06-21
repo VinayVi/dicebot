@@ -1,1 +1,6 @@
-db-data/data
+db-data/
+.vscode
+dist
+test
+.env
+src/discord.config.json

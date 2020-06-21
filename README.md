@@ -1,16 +1,9 @@
 ## Local Development
 
 ### Configuration
-Local development requires two files which are not checked into source control: .env and src/discord.config.json.
+Running this server requires a single file which isn't checked into source control: `src/discord.config.json`
 
-.env
----
-```
-DATADIRECTORY=string
-```
-`DATADIRECTORY`: The directory on the host machine where the data should be saved
-
-src/discord.config.json 
+`src/discord.config.json`
 ---
 ```
 {
@@ -22,4 +15,4 @@ src/discord.config.json
 `prefix`: The prefix for the bot. It will only respond to messages starting with this prefix.
 
 ## Starting the Server
-Once the configurations are set up, the bot can be started by running `docker-compose up`
+Once the `src/discord.config.json` file is set up, the bot can be started by running `docker-compose up`

@@ -20,8 +20,7 @@ export class DeleteConfigurationHandler extends AbstractDiscriminatingMessageHan
   async handle(msg: Message): Promise<void> {
     const userId: Snowflake = msg.user.id;
 
-    const args = this.getArgs(msg.content);
-    const key = args.trim();
+    const key = this.getArgs(msg.content);
 
     this.userConfigurationService.deleteUserConfig(userId, key)
       .then(_ => msg.reply("Configuration Deleted!"));

@@ -6,13 +6,18 @@ import { DiceRollParsingHandler } from './DiceRollParsingHandler';
 import { MessageDispatcher } from './MessageDispatcher';
 import { DeleteConfigurationHandler } from './DeleteConfigurationHandler';
 import { HelpHandler } from './HelpHandler';
+import { ImportConfigurationHandler } from './ImportConfigurationHandler';
+import { ExportConfigurationHandler } from './ExportConfigurationHandler';
 
-const saveConfigurationHandler: SaveConfigurationHandler = new SaveConfigurationHandler(userConfigurationService);
-const getConfigurationhandler: GetConfigurationHandler = new GetConfigurationHandler(userConfigurationService);
-const deleteConfigurationHandler: DeleteConfigurationHandler = new DeleteConfigurationHandler(userConfigurationService);
-const helphandler: HelpHandler = new HelpHandler();
+const saveConfigurationHandler = new SaveConfigurationHandler(userConfigurationService);
+const getConfigurationhandler = new GetConfigurationHandler(userConfigurationService);
+const deleteConfigurationHandler = new DeleteConfigurationHandler(userConfigurationService);
+const importConfigurationHandler = new ImportConfigurationHandler(userConfigurationService);
+const exportConfigurationhandler = new ExportConfigurationHandler(userConfigurationService);
+const helphandler = new HelpHandler();
+
 const defaultHandler: DiceRollParsingHandler = new DiceRollParsingHandler(userConfigurationService);
 
-const dispatcher: MessageDispatcher = new MessageDispatcher([saveConfigurationHandler, getConfigurationhandler, deleteConfigurationHandler, helphandler], defaultHandler);
+const dispatcher: MessageDispatcher = new MessageDispatcher([saveConfigurationHandler, getConfigurationhandler, deleteConfigurationHandler, importConfigurationHandler, exportConfigurationhandler,helphandler], defaultHandler);
 
 export { dispatcher };

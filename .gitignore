@@ -2,5 +2,6 @@ node_modules
 dist
 coverage
 db-data
+.env
 
 **/discord.config.json

@@ -1,4 +1,6 @@
-FROM node:12-alpine3.12
+ARG NODE_BASE
+
+FROM ${NODE_BASE}
 
 WORKDIR /app
 
